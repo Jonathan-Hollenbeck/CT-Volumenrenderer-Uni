@@ -24,3 +24,4 @@ libnanogui.dylib
 .vscode/
 *.pyc
 resources/nanogui-entypo
+build
