@@ -11,8 +11,41 @@ void SliceViewerCanvas::drawGL() {
 
     using namespace nanogui;
 
-    // rendering code here
+    shader.bind();
 
+    Matrix4f view;
+    view.setIdentity();
+    view.topLeftCorner<3, 3>() = Eigen::Matrix3f(Eigen::AngleAxisf(rotation[0], Vector3f::UnitX()) * // mimic euler angles
+                                                 Eigen::AngleAxisf(rotation[1], Vector3f::UnitY()) *
+                                                 Eigen::AngleAxisf(rotation[2], Vector3f::UnitZ())) * zoom;
+
+    Matrix4f projection;
+    projection.setIdentity();
+
+    Matrix4f model;
+    model.setIdentity();
+
+    Matrix4f mvp = projection * view * model;
+
+    MatrixXf vertices(3, 3);
+    vertices.col(0) << -1, -1, -1;
+    vertices.col(1) << 1, -1, -1;
+    vertices.col(2) << -1, 1, 1;
+
+    MatrixXf colors(3, 3);
+    colors.col(0) << 1, 0, 0;
+    colors.col(1) << 0, 1, 0;
+    colors.col(2) << 0, 0, 1;
+
+    MatrixXu indices(3, 1);
+    indices.col(0) << 0, 1, 2;
+
+    shader.setUniform("modelViewProj", mvp);
+    shader.uploadIndices(indices);
+    shader.uploadAttrib("position", vertices);
+    shader.uploadAttrib("color", colors);
+
+    shader.drawIndexed(GL_TRIANGLES, 0, 1); // GL_LINES
 }
 
 std::vector<float> SliceViewerCanvas::getExampleTexture(int width, int height) {

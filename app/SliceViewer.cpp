@@ -20,6 +20,7 @@ void SliceViewer::addPlaneControls(nanogui::Window *controlsWindow,
     Slider *planeSlider = new Slider(planePanel);
     planeSlider->setRange(sliderRange);
     planeSlider->setValue(0);
+
     planeSlider->setFixedWidth(80);
 
     TextBox *planeTextBox = new TextBox(planePanel);
