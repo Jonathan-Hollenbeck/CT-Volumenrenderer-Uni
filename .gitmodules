@@ -1,0 +1,14 @@
+[submodule "ext/nanovg"]
+    path = ext/nanovg
+    url = https://github.com/wjakob/nanovg
+[submodule "ext/glfw"]
+    path = ext/glfw
+    url = https://github.com/wjakob/glfw
+[submodule "ext/eigen"]
+    path = ext/eigen
+    url = https://github.com/eigenteam/eigen-git-mirror.git
+    shallow = true
+[submodule "ext/glm"]
+	path = ext/glm
+	url = https://github.com/g-truc/glm.git
+	branch = master
