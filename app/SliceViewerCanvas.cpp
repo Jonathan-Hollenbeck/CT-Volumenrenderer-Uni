@@ -129,9 +129,9 @@ void SliceViewerCanvas::drawSlice(SliceViewerCanvas::Slice slice) {
             break;
         case SLICE_YZ:
             positions.col(0) << 0, -1, -1;
-            positions.col(1) << 0, -1, 1;
+            positions.col(1) << 0, 1, -1;
             positions.col(2) << 0, 1, 1;
-            positions.col(3) << 0, 1, -1;
+            positions.col(3) << 0, -1, 1;
             model(0, 3) = positionYZ;
             break;
         case SLICE_XZ:
