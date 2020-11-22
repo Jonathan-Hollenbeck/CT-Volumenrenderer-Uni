@@ -35,21 +35,23 @@ public:
 
                 /* Vertex shader */
                 "#version 330\n"
-                "uniform mat4 modelViewProj;\n"
+                "uniform mat4 viewProj;\n"
+                "uniform mat4 model;\n"
                 "in vec3 position;\n"
-                "in vec3 color;\n"
-                "out vec4 frag_color;\n"
+                "in vec2 uv;\n"
+                "out vec2 uv_;\n"
                 "void main() {\n"
-                "    frag_color = 3.0 * modelViewProj * vec4(color, 1.0);\n"
-                "    gl_Position = modelViewProj * vec4(position, 1.0);\n"
+                "    gl_Position = viewProj * model * vec4(position, 1.0);\n"
+                "    uv_ = uv;\n"
                 "}",
 
                 /* Fragment shader */
                 "#version 330\n"
                 "out vec4 color;\n"
-                "in vec4 frag_color;\n"
+                "in vec2 uv_;\n"
+                "uniform sampler2D tex;\n"
                 "void main() {\n"
-                "    color = frag_color;\n"
+                "    color = vec4(vec3(texture(tex, uv_).r), 1);\n"
                 "}"
         );
     }
@@ -72,11 +74,25 @@ public:
 
     virtual void drawGL() override;
 
+    void drawBoundingBox();
+
+    void drawSlice(Slice slice);
+
+    void setSlicePosition(Slice slice, float position);
+
+    void setSliceVisibility(Slice slice, bool isVisible);
+
 
 private:
     nanogui::GLShader shader;
     Eigen::Vector3f rotation;
     float zoom;
+    float positionXY = -1.f;
+    float positionYZ = -1.f;
+    float positionXZ = -1.f;
+    bool showSliceXY = false;
+    bool showSliceYZ = false;
+    bool showSliceXZ = false;
 };
 
 

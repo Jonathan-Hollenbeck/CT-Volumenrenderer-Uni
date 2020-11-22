@@ -46,31 +46,31 @@ public:
         /*
          * Add the slice viewer controls
          */
-        addPlaneControls(planeControlsWindow, std::pair<int, int>(0, 20), "Show xy-plane",
+        addPlaneControls(planeControlsWindow, std::pair<int, int>(0, 10), "Show xy-plane",
                          [this](bool isChecked) {
-                             std::cout << isChecked << std::endl;
+                             canvas->setSliceVisibility(SliceViewerCanvas::SLICE_XY, isChecked);
                              return isChecked;
                          },
                          [this](int value) {
-                             std::cout << value << std::endl;
+                             canvas->setSlicePosition(SliceViewerCanvas::SLICE_XY, ((value / 10.f) - 0.5f) * 2.f);
                          }
         );
-        addPlaneControls(planeControlsWindow, std::pair<int, int>(0, 30), "Show yz-plane",
+        addPlaneControls(planeControlsWindow, std::pair<int, int>(0, 10), "Show yz-plane",
                          [this](bool isChecked) {
-                             std::cout << isChecked << std::endl;
+                             canvas->setSliceVisibility(SliceViewerCanvas::SLICE_YZ, isChecked);
                              return isChecked;
                          },
                          [this](int value) {
-                             std::cout << value << std::endl;
+                             canvas->setSlicePosition(SliceViewerCanvas::SLICE_YZ, ((value / 10.f) - 0.5f) * 2.f);
                          }
         );
-        addPlaneControls(planeControlsWindow, std::pair<int, int>(0, 4), "Show xz-plane",
+        addPlaneControls(planeControlsWindow, std::pair<int, int>(0, 10), "Show xz-plane",
                          [this](bool isChecked) {
-                             std::cout << isChecked << std::endl;
+                             canvas->setSliceVisibility(SliceViewerCanvas::SLICE_XZ, isChecked);
                              return isChecked;
                          },
                          [this](int value) {
-                             std::cout << value << std::endl;
+                             canvas->setSlicePosition(SliceViewerCanvas::SLICE_XZ, ((value / 10.f) - 0.5f) * 2.f);
                          }
         );
 
